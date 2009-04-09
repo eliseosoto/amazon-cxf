@@ -1,0 +1,13 @@
+#summary configuration on how to run the included Junit tests
+#labels Featured,Phase-Deploy,Phase-Requirements
+
+= Introduction =
+
+Amazon-CXF contains several JUnit test cases that can be used as examples on how to use the library. However some steps need to be followed before trying to run them.
+
+
+= Details =
+
+Since you need a username/password in order to call the Amazon Web Services it wasn't possible to include them in the repository.
+
+You can create your own AWS account by visiting http://aws.amazon.com/
