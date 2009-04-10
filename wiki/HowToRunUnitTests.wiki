@@ -11,3 +11,24 @@ Amazon-CXF contains several JUnit test cases that can be used as examples on how
 Since you need a username/password in order to call the Amazon Web Services it wasn't possible to include them in the repository.
 
 You can create your own AWS account by visiting http://aws.amazon.com/
+
+== Changes to you local Maven Settings ==
+
+Add the following to your HOME/.m2/settings.xml right before {{{</settings>}}} and replace the appropriate values.
+
+{{{
+	<activeProfiles>
+		<activeProfile>amazon-cxf-default</activeProfile>
+	</activeProfiles>
+
+	<profiles>
+		<profile>
+			<id>amazon-cxf-default</id>
+			<properties>
+				<awsAccessKeyId>99999999999999999999</awsAccessKeyId>
+				<associateTag>supervacacom-20</associateTag>
+				<cxf.proxy>ProxyServerType="HTTP" ProxyServer="127.0.0.1" ProxyServerPort="80"</cxf.proxy>
+			</properties>
+			</profile>
+	</profiles>
+}}}
