@@ -29,6 +29,6 @@ Add the following to your HOME/.m2/settings.xml right before {{{</settings>}}} a
 				<associateTag>supervacacom-20</associateTag>
 				<cxf.proxy>ProxyServerType="HTTP" ProxyServer="127.0.0.1" ProxyServerPort="80"</cxf.proxy>
 			</properties>
-			</profile>
+		</profile>
 	</profiles>
 }}}
