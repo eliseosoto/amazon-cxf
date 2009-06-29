@@ -14,21 +14,25 @@ You can create your own AWS account by visiting http://aws.amazon.com/
 
 == Changes to you local Maven Settings ==
 
-Add the following to your HOME/.m2/settings.xml right before {{{</settings>}}} and replace the appropriate values.
+Add the following to your HOME/.m2/settings.xml right before {{{</settings>}}} and replace the appropriate values. If you don't use a proxy then leave cxf.proxy as just <cxf.proxy></cxf.proxy>.
+
+See the [SigningRequests Signing Requests] page for information on keystore.alias and keystore.password
 
 {{{
-	<activeProfiles>
-		<activeProfile>amazon-cxf-default</activeProfile>
-	</activeProfiles>
+<activeProfiles>
+	<activeProfile>amazon-cxf-default</activeProfile>
+</activeProfiles>
 
-	<profiles>
-		<profile>
-			<id>amazon-cxf-default</id>
+<profiles>
+	<profile>
+		<id>amazon-cxf-default</id>
 			<properties>
-				<awsAccessKeyId>99999999999999999999</awsAccessKeyId>
+				<awsAccessKeyId>1Y8NC1MDWFVG8XQ35HR2</awsAccessKeyId>
 				<associateTag>supervacacom-20</associateTag>
-				<cxf.proxy>ProxyServerType="HTTP" ProxyServer="127.0.0.1" ProxyServerPort="80"</cxf.proxy>
-			</properties>
-		</profile>
-	</profiles>
+				<cxf.proxy>ProxyServerType="HTTP" ProxyServer="10.156.133.118" ProxyServerPort="80"</cxf.proxy>
+				<keystore.alias>myAlias</keystore.alias>
+				<keystore.password>myPassword</keystore.password>
+		</properties>
+	</profile>
+</profiles>
 }}}
