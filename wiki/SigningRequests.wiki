@@ -1,0 +1,32 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+All Product Advertising API developers will be required to authenticate all calls to the Product Advertising API by August 15, 2009.
+
+See the [http://docs.amazonwebservices.com/AWSECommerceService/latest/DG/index.html?RequestAuthenticationArticle.html Developer's Guide] for more information. In this case we need to sign the SOAP requests.
+
+To sign SOAP requests in CXF I used the following resources:
+
+http://cwiki.apache.org/CXF20DOC/ws-security.html#WS-Security-addinterceptors
+[http://domagojtechtips.blogspot.com/2007/08/cxf-spring-and-ws-security-putting-it.html]
+
+
+= Create your own public/private keys and X.509 Certificate =
+You need to create your own keys using the following commands, replace myAlias and myPassword to the values of your choice. Also be careful and store the resulting files in a safe location.
+
+{{{
+keytool -genkey -alias myAlias -keypass myPassword -keystore privatestore.jks -storepass myPassword -dname "cn=My Name, c=mx" -keyalg RSA
+
+keytool -selfcert -alias myAlias -keystore privatestore.jks -storepass myPassword -keypass myPassword
+
+keytool -export -alias myAlias -file key.rsa -keystore privatestore.jks -storepass myPassword -rfc
+
+keytool -import -alias myAlias  -file key.rsa -keystore publicstore.jks -storepass myPassword
+}}}
+
+Then go to [http://aws.amazon.com/] and navigate to Home > Your Account  >  Access Identifiers and Upload Your Own X.509 Certificate by selecting the key.rsa file that we just created.
+
+= Add the privatestore.jks to the project resources =
+For security reasons I'm not including privatestore.jks as part of the sources as you need to use your own.
+
+Save it in src/main/resources/jks and also be sure to update the keystore.alias and keystore.password properties in the [HowToRunUnitTests Maven Settings]
