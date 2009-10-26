@@ -9,7 +9,7 @@ To sign SOAP requests in CXF I used the following resources:
 
 [http://www.mularien.com/blog/2009/08/13/tutorial-amazon-soap-product-advertising-api-from-java-including-signing-of-requests-with-ws-security/ Amazon SOAP Product Advertising API from Java – Including Signing of Requests with WS-Security]
 
-= Create a new X.509 Certificate from Amazon
+= Create a new X.509 Certificate from Amazon =
   * Log into your AWS account and navigate to the “Access Identifiers” section.
   * Create a new X.509 certificate
   * Download both the public and private keys. Note that the public certificate filename starts with “cert-” and the private key starts with “pk-”.
