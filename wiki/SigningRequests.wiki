@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary How to sign the requests to comply to with Amazon's WS-Security policy
 
 = Introduction =
 All Product Advertising API developers will be required to authenticate all calls to the Product Advertising API by August 15, 2009.
@@ -7,26 +7,21 @@ See the [http://docs.amazonwebservices.com/AWSECommerceService/latest/DG/index.h
 
 To sign SOAP requests in CXF I used the following resources:
 
-http://cwiki.apache.org/CXF20DOC/ws-security.html#WS-Security-addinterceptors
-[http://domagojtechtips.blogspot.com/2007/08/cxf-spring-and-ws-security-putting-it.html]
+[http://www.mularien.com/blog/2009/08/13/tutorial-amazon-soap-product-advertising-api-from-java-including-signing-of-requests-with-ws-security/ Amazon SOAP Product Advertising API from Java – Including Signing of Requests with WS-Security]
 
+= Create a new X.509 Certificate from Amazon
+  * Log into your AWS account and navigate to the “Access Identifiers” section.
+  * Create a new X.509 certificate
+  * Download both the public and private keys. Note that the public certificate filename starts with “cert-” and the private key starts with “pk-”.
 
-= Create your own public/private keys and X.509 Certificate =
-You need to create your own keys using the following commands, replace myAlias and myPassword to the values of your choice. Also be careful and store the resulting files in a safe location.
+= Create a P12 file from both the public and private keys =
+You'll need OpenSSL which is very likely included with Linux and Mac, or you can download a [http://www.slproweb.com/products/Win32OpenSSL.html Windows version]. Replace the cert-XXX.pem and pk-XXX.pem with your own filenames.
 
 {{{
-keytool -genkey -alias myAlias -keypass myPassword -keystore privatestore.jks -storepass myPassword -dname "cn=My Name, c=mx" -keyalg RSA
-
-keytool -selfcert -alias myAlias -keystore privatestore.jks -storepass myPassword -keypass myPassword
-
-keytool -export -alias myAlias -file key.rsa -keystore privatestore.jks -storepass myPassword -rfc
-
-keytool -import -alias myAlias  -file key.rsa -keystore publicstore.jks -storepass myPassword
+openssl pkcs12 -export -name amaws -out amazon_ws.p12 -in cert-XXX.pem -inkey pk-XXX.pem
 }}}
 
-Then go to [http://aws.amazon.com/] and navigate to Home > Your Account  >  Access Identifiers and Upload Your Own X.509 Certificate by selecting the key.rsa file that we just created.
-
-= Add the privatestore.jks to the project resources =
-For security reasons I'm not including privatestore.jks as part of the sources as you need to use your own.
+= Add amazon-ws.p12 to the project resources =
+For security reasons I'm not including amazon-ws.p12 as part of the sources as you need to use your own.
 
 Save it in src/main/resources/jks and also be sure to update the keystore.alias and keystore.password properties in the [HowToRunUnitTests Maven Settings]
